@@ -8,6 +8,9 @@ let outputEl = document.getElementById('output');
 // Go Btn - Menu Listener
 goBtnEl.addEventListener('click', goBtnHandler);
 
+// Array 
+let contacts = [];
+
 function goBtnHandler() {
   // Get Menu Selection
   let selection = menuEl.value;
@@ -31,7 +34,10 @@ function displayContacts() {
 }
 
 function addContact() {
-  console.log('Add Contact');
+  let contact = +prompt("Enter New Contact Name: ");
+  contacts.push(newContact(contact));
+  outputEl.innerHTML = `Task Added: ${contact}`;
+
 }
 
 function removeContact() {
@@ -45,3 +51,27 @@ function displayByName() {
 function displayByCountry() {
   console.log('Display by Country');
 }
+
+//Helper Functions
+function newContact(contactDescription){
+  return {
+    contact: contactDescription,
+    completed: ''
+  }
+}
+
+function getContactHTMLStr(contact,i){
+  return `
+  <div class = "${contact.completed}" >
+   ${i}: ${contact}
+  </div>
+  `;
+}
+
+function displayAll(){
+  let outputStr = '';
+  for (let i=0; i< tasks.length;i++ ){
+     outputStr += getContactHTMLStr(contact[i],i);
+  }
+  outputEl.innerHTML = outputStr;
+} 
