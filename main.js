@@ -9,8 +9,8 @@ let outputEl = document.getElementById('output');
 goBtnEl.addEventListener('click', goBtnHandler);
 
 // Array 
-let contacts = [];
-
+let contacts = loadContacts();
+displayAll();
 function goBtnHandler() {
   // Get Menu Selection
   let selection = menuEl.value;
@@ -30,18 +30,35 @@ function goBtnHandler() {
 
 // MENU FUNCTIONS
 function displayContacts() {
-  console.log('Display Contacts');
+  displayAll();
 }
 
 function addContact() {
-  let contact = +prompt("Enter New Contact Name: ");
-  contacts.push(newContact(contact));
-  outputEl.innerHTML = `Task Added: ${contact}`;
+  let contactI = prompt("Enter New Contact Name: ");
+  contacts.push(newContact(contactI));
+  contactI = prompt("Enter New Contact Email: ");
+  contacts.push(newContact(contactI));
+  contactI = prompt("Enter New Contact Phone #: ");
+  contacts.push(newContact(contactI));
+  contactI = prompt("Enter New Contact Country: ");
+  contacts.push(newContact(contactI));
+
+  outputEl.innerHTML = `Task Added: ${contactI}`;
+  displayAll();
+  saveContact();
 
 }
 
 function removeContact() {
-  console.log('Remove Contact');
+  let index = +prompt("Enter contact # to remove: ");
+  if (index >=0 && index < contacts.length){ 
+    contacts.splice(index, 1);
+    alert(`Contact # ${index} has been removed`);
+    displayAll();
+    saveContact();
+  } else {
+    alert("Invalid Contact #");
+  }
 }
 
 function displayByName() {
@@ -55,23 +72,32 @@ function displayByCountry() {
 //Helper Functions
 function newContact(contactDescription){
   return {
-    contact: contactDescription,
+    contactI: contactDescription,
     completed: ''
-  }
+  };
 }
 
-function getContactHTMLStr(contact,i){
+function getContactHTMLStr(info,i){
   return `
-  <div class = "${contact.completed}" >
-   ${i}: ${contact}
+  <div>
+   ${i}: ${info.contactI}
   </div>
   `;
 }
 
 function displayAll(){
   let outputStr = '';
-  for (let i=0; i< tasks.length;i++ ){
-     outputStr += getContactHTMLStr(contact[i],i);
+  for (let i=0; i< contacts.length;i++ ){
+     outputStr += getContactHTMLStr(contacts[i],i);
   }
   outputEl.innerHTML = outputStr;
 } 
+
+function saveContact(){
+  localStorage.setItem('contacts', JSON.stringify(contacts));
+}
+
+function loadContacts(){
+  let contactsStr = localStorage.getItem('contacts');
+  return JSON.parse(contactsStr) ?? [];
+}
