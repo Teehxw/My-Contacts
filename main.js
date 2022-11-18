@@ -9,8 +9,8 @@ let outputEl = document.getElementById('output');
 goBtnEl.addEventListener('click', goBtnHandler);
 
 // Array 
-let contacts = [];
-
+let contacts = loadContacts();
+displayAll();
 function goBtnHandler() {
   // Get Menu Selection
   let selection = menuEl.value;
@@ -30,18 +30,42 @@ function goBtnHandler() {
 
 // MENU FUNCTIONS
 function displayContacts() {
-  console.log('Display Contacts');
+  displayAll();
 }
 
 function addContact() {
+<<<<<<< HEAD
   let contactI = +prompt("Enter New Contact Name: ");
   contacts.push(newContact(contactI));
   outputEl.innerHTML = `Task Added: ${contactI}`;
   displayAll();
+=======
+  let contactI = prompt("Enter New Contact Name: ");
+  contacts.push(newContact(contactI));
+  contactI = prompt("Enter New Contact Email: ");
+  contacts.push(newContact(contactI));
+  contactI = prompt("Enter New Contact Phone #: ");
+  contacts.push(newContact(contactI));
+  contactI = prompt("Enter New Contact Country: ");
+  contacts.push(newContact(contactI));
+
+  outputEl.innerHTML = `Task Added: ${contactI}`;
+  displayAll();
+  saveContact();
+
+>>>>>>> b296786113ba0c59d377cbbe23aef70e2dd3c777
 }
 
 function removeContact() {
-  console.log('Remove Contact');
+  let index = +prompt("Enter contact # to remove: ");
+  if (index >=0 && index < contacts.length){ 
+    contacts.splice(index, 1);
+    alert(`Contact # ${index} has been removed`);
+    displayAll();
+    saveContact();
+  } else {
+    alert("Invalid Contact #");
+  }
 }
 
 function displayByName() {
@@ -55,19 +79,38 @@ function displayByCountry() {
 //Helper Functions
 function newContact(contactInform){
   return {
+<<<<<<< HEAD
     contactI: contactInform,
+    completed: ''
+  };
+=======
+    contactI: contactDescription,
     completed: ''
   };
 }
 
+function getContactHTMLStr(info,i){
+  return `
+  <div>
+   ${i}: ${info.contactI}
+  </div>
+  `;
+>>>>>>> b296786113ba0c59d377cbbe23aef70e2dd3c777
+}
+
 function displayAll(){
   let outputStr = '';
+<<<<<<< HEAD
   for (let i=0; i< contacts.length;i++){
+=======
+  for (let i=0; i< contacts.length;i++ ){
+>>>>>>> b296786113ba0c59d377cbbe23aef70e2dd3c777
      outputStr += getContactHTMLStr(contacts[i],i);
   }
   outputEl.innerHTML = outputStr;
 } 
 
+<<<<<<< HEAD
 function getContactHTMLStr(info,i){
   return `
   <div>
@@ -76,3 +119,13 @@ function getContactHTMLStr(info,i){
   `;
 }
 
+=======
+function saveContact(){
+  localStorage.setItem('contacts', JSON.stringify(contacts));
+}
+
+function loadContacts(){
+  let contactsStr = localStorage.getItem('contacts');
+  return JSON.parse(contactsStr) ?? [];
+}
+>>>>>>> b296786113ba0c59d377cbbe23aef70e2dd3c777
