@@ -34,10 +34,10 @@ function displayContacts() {
 }
 
 function addContact() {
-  let contact = +prompt("Enter New Contact Name: ");
-  contacts.push(newContact(contact));
-  outputEl.innerHTML = `Task Added: ${contact}`;
-
+  let contactI = +prompt("Enter New Contact Name: ");
+  contacts.push(newContact(contactI));
+  outputEl.innerHTML = `Task Added: ${contactI}`;
+  displayAll();
 }
 
 function removeContact() {
@@ -53,25 +53,26 @@ function displayByCountry() {
 }
 
 //Helper Functions
-function newContact(contactDescription){
+function newContact(contactInform){
   return {
-    contact: contactDescription,
+    contactI: contactInform,
     completed: ''
-  }
-}
-
-function getContactHTMLStr(contact,i){
-  return `
-  <div class = "${contact.completed}" >
-   ${i}: ${contact}
-  </div>
-  `;
+  };
 }
 
 function displayAll(){
   let outputStr = '';
-  for (let i=0; i< tasks.length;i++ ){
-     outputStr += getContactHTMLStr(contact[i],i);
+  for (let i=0; i< contacts.length;i++){
+     outputStr += getContactHTMLStr(contacts[i],i);
   }
   outputEl.innerHTML = outputStr;
 } 
+
+function getContactHTMLStr(info,i){
+  return `
+  <div>
+   ${i}: ${info.contactI} 
+  </div>
+  `;
+}
+
