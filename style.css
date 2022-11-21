@@ -7,13 +7,12 @@ body {
 #output {
   margin-top:40px;
 }
-<<<<<<< HEAD
-
-#output div {
-=======
 #output div{
->>>>>>> b296786113ba0c59d377cbbe23aef70e2dd3c777
   border: 1px solid grey;
   padding: 10px;
   margin: 5px 0;
+}
+
+.i {
+  text-decoration: bold;
 }

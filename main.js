@@ -11,6 +11,7 @@ goBtnEl.addEventListener('click', goBtnHandler);
 // Array 
 let contacts = loadContacts();
 displayAll();
+
 function goBtnHandler() {
   // Get Menu Selection
   let selection = menuEl.value;
@@ -34,12 +35,7 @@ function displayContacts() {
 }
 
 function addContact() {
-<<<<<<< HEAD
-  let contactI = +prompt("Enter New Contact Name: ");
-  contacts.push(newContact(contactI));
-  outputEl.innerHTML = `Task Added: ${contactI}`;
-  displayAll();
-=======
+
   let contactI = prompt("Enter New Contact Name: ");
   contacts.push(newContact(contactI));
   contactI = prompt("Enter New Contact Email: ");
@@ -53,7 +49,6 @@ function addContact() {
   displayAll();
   saveContact();
 
->>>>>>> b296786113ba0c59d377cbbe23aef70e2dd3c777
 }
 
 function removeContact() {
@@ -69,7 +64,14 @@ function removeContact() {
 }
 
 function displayByName() {
-  console.log('Display by Name');
+  let nameSearch = prompt("Enter a Name to find Contact: ");
+  let divStr = "";
+  for (let i =0; i < contacts.length; i++){
+      if(contacts[i].includes(nameSearch)) {
+        divStr += contacts[i]
+      }
+  }   
+  outputEl.innerHTML = divStr;  
 }
 
 function displayByCountry() {
@@ -79,12 +81,7 @@ function displayByCountry() {
 //Helper Functions
 function newContact(contactInform){
   return {
-<<<<<<< HEAD
     contactI: contactInform,
-    completed: ''
-  };
-=======
-    contactI: contactDescription,
     completed: ''
   };
 }
@@ -95,31 +92,16 @@ function getContactHTMLStr(info,i){
    ${i}: ${info.contactI}
   </div>
   `;
->>>>>>> b296786113ba0c59d377cbbe23aef70e2dd3c777
 }
 
 function displayAll(){
   let outputStr = '';
-<<<<<<< HEAD
   for (let i=0; i< contacts.length;i++){
-=======
-  for (let i=0; i< contacts.length;i++ ){
->>>>>>> b296786113ba0c59d377cbbe23aef70e2dd3c777
      outputStr += getContactHTMLStr(contacts[i],i);
   }
   outputEl.innerHTML = outputStr;
 } 
 
-<<<<<<< HEAD
-function getContactHTMLStr(info,i){
-  return `
-  <div>
-   ${i}: ${info.contactI} 
-  </div>
-  `;
-}
-
-=======
 function saveContact(){
   localStorage.setItem('contacts', JSON.stringify(contacts));
 }
@@ -128,4 +110,3 @@ function loadContacts(){
   let contactsStr = localStorage.getItem('contacts');
   return JSON.parse(contactsStr) ?? [];
 }
->>>>>>> b296786113ba0c59d377cbbe23aef70e2dd3c777
