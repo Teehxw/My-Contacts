@@ -34,6 +34,12 @@ function displayContacts() {
 }
 
 function addContact() {
+<<<<<<< HEAD
+  let contactI = +prompt("Enter New Contact Name: ");
+  contacts.push(newContact(contactI));
+  outputEl.innerHTML = `Task Added: ${contactI}`;
+  displayAll();
+=======
   let contactI = prompt("Enter New Contact Name: ");
   let contactEmail = prompt("Enter New Contact Email: ");
   let contactNumber = prompt("Enter New Contact Number: ");
@@ -44,6 +50,7 @@ function addContact() {
   displayAll();
   saveContact();
 
+>>>>>>> b296786113ba0c59d377cbbe23aef70e2dd3c777
 }
 
 function removeContact() {
@@ -67,8 +74,17 @@ function displayByCountry() {
 }
 
 //Helper Functions
+<<<<<<< HEAD
 function newContact(contactDescription, contactEmails,contactNumbers, contactCountries ){
+=======
+function newContact(contactInform){
+>>>>>>> d60641bc0254e8840eb879405476ddde2b81cf43
   return {
+<<<<<<< HEAD
+    contactI: contactInform,
+    completed: ''
+  };
+=======
     contactI: contactDescription,
     contactEmail: contactEmails, 
     contactNumber: contactNumbers, 
@@ -85,16 +101,31 @@ function getContactHTMLStr(info,i){
    <p>${info.contactNumber} (${info.contactCountry})
   </div>
   `;
+>>>>>>> b296786113ba0c59d377cbbe23aef70e2dd3c777
 }
 
 function displayAll(){
   let outputStr = '';
+<<<<<<< HEAD
+  for (let i=0; i< contacts.length;i++){
+=======
   for (let i=0; i< contacts.length;i++ ){
+>>>>>>> b296786113ba0c59d377cbbe23aef70e2dd3c777
      outputStr += getContactHTMLStr(contacts[i],i);
   }
   outputEl.innerHTML = outputStr;
 } 
 
+<<<<<<< HEAD
+function getContactHTMLStr(info,i){
+  return `
+  <div>
+   ${i}: ${info.contactI} 
+  </div>
+  `;
+}
+
+=======
 function saveContact(){
   localStorage.setItem('contacts', JSON.stringify(contacts));
 }
@@ -103,3 +134,4 @@ function loadContacts(){
   let contactsStr = localStorage.getItem('contacts');
   return JSON.parse(contactsStr) ?? [];
 }
+>>>>>>> b296786113ba0c59d377cbbe23aef70e2dd3c777
