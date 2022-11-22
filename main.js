@@ -60,12 +60,12 @@ function removeContact() {
   }
 }
 
-function displayByName() {
+function displayByName(event) {
   let nameSearch = prompt("Enter a Name to find Contact: ");
   let divStr = "";
   for (let i =0; i < contacts.length; i++){
-      if(contacts[i].includes(nameSearch)) {
-        divStr += contacts[i]
+      if(contacts[i].include(nameSearch)) {
+        divStr += contacts[i];
       }
   }   
   outputEl.innerHTML = divStr;  
@@ -76,7 +76,7 @@ function displayByCountry() {
 }
 
 //Helper Functions
-function newContact(contactInform){
+function newContact(contactDescription, contactEmails, contactNumbers, contactCountries){
   return {
     contactI: contactDescription,
     contactEmail: contactEmails, 
