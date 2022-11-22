@@ -37,13 +37,10 @@ function displayContacts() {
 function addContact() {
 
   let contactI = prompt("Enter New Contact Name: ");
-  contacts.push(newContact(contactI));
-  contactI = prompt("Enter New Contact Email: ");
-  contacts.push(newContact(contactI));
-  contactI = prompt("Enter New Contact Phone #: ");
-  contacts.push(newContact(contactI));
-  contactI = prompt("Enter New Contact Country: ");
-  contacts.push(newContact(contactI));
+  let contactEmail = prompt("Enter New Contact Email: ");
+  let contactNumber = prompt("Enter New Contact Number: ");
+  let contactCountry = prompt("Enter New Contact Country");
+  contacts.push(newContact(contactI, contactEmail, contactNumber, contactCountry));
 
   outputEl.innerHTML = `Task Added: ${contactI}`;
   displayAll();
@@ -81,15 +78,21 @@ function displayByCountry() {
 //Helper Functions
 function newContact(contactInform){
   return {
-    contactI: contactInform,
+    contactI: contactDescription,
+    contactEmail: contactEmails, 
+    contactNumber: contactNumbers, 
+    contactCountry: contactCountries, 
     completed: ''
+    
   };
 }
 
 function getContactHTMLStr(info,i){
   return `
   <div>
-   ${i}: ${info.contactI}
+   <h2>${i}: ${info.contactI} </h2>
+   <p>${info.contactEmail}</p>
+   <p>${info.contactNumber} (${info.contactCountry})
   </div>
   `;
 }
