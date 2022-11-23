@@ -64,7 +64,7 @@ function displayByName(event) {
   let nameSearch = prompt("Enter a Name to find Contact: ");
   let divStr = "";
   for (let i =0; i < contacts.length; i++){
-      if(contacts[i].include(nameSearch)) {
+      if(contacts[i].includes(nameSearch)) {
         divStr += contacts[i];
       }
   }   
