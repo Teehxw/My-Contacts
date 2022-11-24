@@ -66,13 +66,30 @@ function displayByName(event) {
   for (let i =0; i < contacts.length; i++){
       if(contacts[i].contactI.includes(nameSearch)) {
         divStr += contacts[i].contactI;
+        divStr += contacts[i].contactEmail;
+        divStr += contacts[i].contactNumber;
+        divStr += contacts[i].contactCountry;
+        
       }
   }   
   outputEl.innerHTML = divStr;  
+  
 }
 
 function displayByCountry() {
-  console.log('Display by Country');
+  let countrySearch = prompt("Enter a Country to find Contact: ");
+  let divStr = "";
+  for (let i =0; i < contacts.length; i++){
+      if(contacts[i].contactCountry.includes(countrySearch)) {
+        divStr += `
+        <h1> ${contacts[i].contactI} </h1>
+        <p> ${contacts[i].contactEmail} </p>
+        <p> ${contacts[i].contactNumber} (${contacts[i].contactCountry})</p>
+        `
+      }
+  }   
+  outputEl.innerHTML = divStr; 
+  displayAll(); 
 }
 
 //Helper Functions
