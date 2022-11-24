@@ -65,14 +65,17 @@ function displayByName(event) {
   let divStr = "";
   for (let i =0; i < contacts.length; i++){
       if(contacts[i].contactI.includes(nameSearch)) {
-        divStr += contacts[i].contactI;
-        divStr += contacts[i].contactEmail;
-        divStr += contacts[i].contactNumber;
-        divStr += contacts[i].contactCountry;
-        
+        divStr += `
+        <div style= 'border: 1px solid grey'>
+        <h1> ${contacts[i].contactI} </h1>
+        <p> ${contacts[i].contactEmail} </p>
+        <p> ${contacts[i].contactNumber} (${contacts[i].contactCountry})</p>
+        </div>
+        `
       }
   }   
-  outputEl.innerHTML = divStr;  
+  outputEl.innerHTML = divStr;
+  
   
 }
 
@@ -82,14 +85,16 @@ function displayByCountry() {
   for (let i =0; i < contacts.length; i++){
       if(contacts[i].contactCountry.includes(countrySearch)) {
         divStr += `
+        <div style='border: 1px solid grey'>
         <h1> ${contacts[i].contactI} </h1>
         <p> ${contacts[i].contactEmail} </p>
         <p> ${contacts[i].contactNumber} (${contacts[i].contactCountry})</p>
+        </div>
         `
       }
   }   
   outputEl.innerHTML = divStr; 
-  displayAll(); 
+  
 }
 
 //Helper Functions
