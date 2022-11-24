@@ -76,7 +76,7 @@ function displayByCountry() {
 }
 
 //Helper Functions
-function newContact(contactInform){
+function newContact(contactDescription, contactEmails, contactNumbers, contactCountries){
   return {
     contactI: contactDescription,
     contactEmail: contactEmails, 
