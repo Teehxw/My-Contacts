@@ -26,6 +26,8 @@ function goBtnHandler() {
     displayByName();
   } else if (selection === 'display-country') {
     displayByCountry();
+  } else if (selection === 'SearchByEmail') {
+    findByEmail();
   }
 }
 
@@ -43,6 +45,7 @@ function addContact() {
   contacts.push(newContact(contactI, contactEmail, contactNumber, contactCountry));
 
   outputEl.innerHTML = `Task Added: ${contactI}`;
+  alert("New Contact has been added");
   displayAll();
   saveContact();
 
@@ -94,6 +97,10 @@ function displayByCountry() {
       }
   }   
   outputEl.innerHTML = divStr; 
+  
+}
+
+function findByEmail(){
   
 }
 
