@@ -101,7 +101,24 @@ function displayByCountry() {
 }
 
 function findByEmail(){
-  
+  let searchEmail = prompt("Enter an email to find contact: ");
+  let index = findByEmail(searchEmail);
+  // let divStr = "";
+  // for (let i=0; i < contacts.length; i++){
+    if (index === -1){
+     alert("no email found")
+    //}
+  } else {
+    divStr += `
+    <div style='border: 1px solid grey'>
+    <h1> ${contacts[i].contactI} </h1>
+    <p> ${contacts[i].contactEmail} </p>
+    <p> ${contacts[i].contactNumber} (${contacts[i].contactCountry})</p>
+    </div>
+    `
+  }
+    
+    outputEl.innerHTML = divStr;
 }
 
 //Helper Functions
