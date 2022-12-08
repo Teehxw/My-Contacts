@@ -100,15 +100,11 @@ function displayByCountry() {
   
 }
 
-function findByEmail(){
-  let searchEmail = prompt("Enter an email to find contact: ");
+function findByEmail(searchEmail){
   let index = findByEmail(searchEmail);
-  // let divStr = "";
-  // for (let i=0; i < contacts.length; i++){
-    if (index === -1){
-     alert("no email found")
-    //}
-  } else {
+ 
+  for (let i=0; i < contacts.length; i++){
+    if (index === contacts[i].contactEmail){
     divStr += `
     <div style='border: 1px solid grey'>
     <h1> ${contacts[i].contactI} </h1>
@@ -116,6 +112,8 @@ function findByEmail(){
     <p> ${contacts[i].contactNumber} (${contacts[i].contactCountry})</p>
     </div>
     `
+  }else {
+    
   }
     
     outputEl.innerHTML = divStr;
@@ -158,4 +156,10 @@ function saveContact(){
 function loadContacts(){
   let contactsStr = localStorage.getItem('contacts');
   return JSON.parse(contactsStr) ?? [];
+}
+
+function findByEmail(search) {
+  for(let i = 0; i < contacts.length; i++){
+
+  }
 }
