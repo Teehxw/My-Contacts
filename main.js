@@ -105,7 +105,7 @@ function findByEmail(searchEmail){
  searchEmail = searchEmail2
  let divStr="";
   for (let i=0; i < contacts.length; i++){
-    if (searchEmail === contacts[i].contactEmail){
+    if (searchEmail===contacts[i].contactEmail){
     divStr += `
     <div style='border: 1px solid grey'>
     <h1> ${contacts[i].contactI} </h1>
@@ -113,13 +113,12 @@ function findByEmail(searchEmail){
     <p> ${contacts[i].contactNumber} (${contacts[i].contactCountry})</p>
     </div>
     `
-  } else if( searchEmail ===-1) {
+  } else {
     alert("No email found");
-    
   }
-    
-    outputEl.innerHTML = divStr;
+  
   }
+  outputEl.innerHTML = divStr;
 }
 
 //Helper Functions
