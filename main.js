@@ -9,7 +9,7 @@ let outputEl = document.getElementById('output');
 goBtnEl.addEventListener('click', goBtnHandler);
 
 // Array 
-let contacts = loadContacts();
+let contactsArray = loadcontactsArray();
 displayAll();
 
 function goBtnHandler() {
@@ -17,7 +17,7 @@ function goBtnHandler() {
   let selection = menuEl.value;
 
   if (selection === 'display-all') {
-    displayContacts();
+    displayAll();
   } else if (selection === 'add') {
     addContact();
   } else if (selection === 'remove') {
@@ -26,138 +26,139 @@ function goBtnHandler() {
     displayByName();
   } else if (selection === 'display-country') {
     displayByCountry();
-  } else if (selection === 'SearchByEmail') {
-    findByEmail();
+  } else if (selection === 'searchByEmail') {
+    let inputEmail = prompt("Enter an email");
+    let index = findByEmail(inputEmail);
+    if (index === -1) {
+      console.log("Contact with that email could not be found");
+    } else {
+      let divStr = '';
+      divStr += `
+      <div style='border: 1px solid grey'>
+      <h1> ${contactsArray[index].contactName} </h1>
+      <p> ${contactsArray[index].contactEmail} </p>
+      <p> ${contactsArray[index].contactNumber} (${contactsArray[index].contactCountry})</p>
+      </div>
+     `
+      outputEl.innerHTML = divStr;
+    }
   }
 }
 
+
 // MENU FUNCTIONS
-function displayContacts() {
-  displayAll();
-}
 
 function addContact() {
-
-  let contactI = prompt("Enter New Contact Name: ");
-  let contactEmail = prompt("Enter New Contact Email: ");
-  let contactNumber = prompt("Enter New Contact Number: ");
-  let contactCountry = prompt("Enter New Contact Country");
-  contacts.push(newContact(contactI, contactEmail, contactNumber, contactCountry));
-
-  outputEl.innerHTML = `Task Added: ${contactI}`;
-  alert("New Contact has been added");
-  displayAll();
-  saveContact();
-
-}
-
-function removeContact() {
-  let index = +prompt("Enter contact # to remove: ");
-  if (index >=0 && index < contacts.length){ 
-    contacts.splice(index, 1);
-    alert(`Contact # ${index} has been removed`);
+  let contactEmail = prompt("Enter New Contact Email:");
+  let index = findByEmail(contactEmail);
+  if (index === -1) {
+    let contactName = prompt("Enter New Contact Name:");
+    let contactNumber = prompt("Enter New Contact Number:");
+    let contactCountry = prompt("Enter New Contact Country");
+    contactsArray.push(newContact(contactName, contactEmail, contactNumber, contactCountry));
+    outputEl.innerHTML = `Task Added: ${contactName}`;
+    alert("New Contact has been added");
+    console.log("Contact with that email could not be found");
     displayAll();
     saveContact();
   } else {
-    alert("Invalid Contact #");
+    alert(`Contact with that email was found at position ${index}`);
   }
 }
 
-function displayByName() {
+function removeContact() {
+  let askEmail = prompt("Enter the email you want to remove:");
+  let index = findByEmail(askEmail);
+  if (index !== -1) {
+    contactsArray.splice(index, 1);
+    displayAll();
+    saveContact();
+  } else {
+    alert("Invalid Email #");
+  }
+}
+
+function displayByName(event) {
   let nameSearch = prompt("Enter a Name to find Contact: ");
   let divStr = "";
-  for (let i =0; i < contacts.length; i++){
-      if(contacts[i].contactI.includes(nameSearch)) {
-        divStr += `
-        <div style= 'border: 1px solid grey'>
-        <h1> ${contacts[i].contactI} </h1>
-        <p> ${contacts[i].contactEmail} </p>
-        <p> ${contacts[i].contactNumber} (${contacts[i].contactCountry})</p>
-        </div>
-        `
-      }
-  }   
+  for (let i = 0; i < contactsArray.length; i++) {
+    if (contactsArray[i].contactName.includes(nameSearch)) {
+      divStr += `
+ <div style= 'border: 1px solid grey'>
+ <h1> ${contactsArray[i].contactName} </h1>
+ <p> ${contactsArray[i].contactEmail} </p>
+ <p> ${contactsArray[i].contactNumber} (${contactsArray[i].contactCountry})</p>
+ </div>
+ `
+    }
+  }
   outputEl.innerHTML = divStr;
-  
-  
 }
 
 function displayByCountry() {
   let countrySearch = prompt("Enter a Country to find Contact: ");
   let divStr = "";
-  for (let i =0; i < contacts.length; i++){
-      if(contacts[i].contactCountry.includes(countrySearch)) {
-        divStr += `
-        <div style='border: 1px solid grey'>
-        <h1> ${contacts[i].contactI} </h1>
-        <p> ${contacts[i].contactEmail} </p>
-        <p> ${contacts[i].contactNumber} (${contacts[i].contactCountry})</p>
-        </div>
-        `
-      }
-  }   
-  outputEl.innerHTML = divStr; 
-  
-}
-
-function findByEmail(searchEmail){
- let searchEmail2 = prompt("Enter an Email");
- searchEmail = searchEmail2
- let divStr="";
-  for (let i=0; i < contacts.length; i++){
-    if (searchEmail===contacts[i].contactEmail){
-    divStr += `
-    <div style='border: 1px solid grey'>
-    <h1> ${contacts[i].contactI} </h1>
-    <p> ${contacts[i].contactEmail} </p>
-    <p> ${contacts[i].contactNumber} (${contacts[i].contactCountry})</p>
-    </div>
-    `
-  } else {
-    alert("No email found");
-  }
-  
+  for (let i = 0; i < contactsArray.length; i++) {
+    if (contactsArray[i].contactCountry.includes(countrySearch)) {
+      divStr += `
+ <div style='border: 1px solid grey'>
+ <h1> ${contactsArray[i].contactName} </h1>
+ <p> ${contactsArray[i].contactEmail} </p>
+ <p> ${contactsArray[i].contactNumber} (${contactsArray[i].contactCountry})</p>
+ </div>
+ `
+    }
   }
   outputEl.innerHTML = divStr;
 }
 
+function findByEmail(emailInput) {
+  for (let i = 0; i < contactsArray.length; i++) {
+    if (emailInput === contactsArray[i].contactEmail) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+
 //Helper Functions
-function newContact(contactDescription, contactEmails, contactNumbers, contactCountries){
+function newContact(contactDescription, contactEmails, contactNumbers, contactCountries) {
   return {
-    contactI: contactDescription,
-    contactEmail: contactEmails, 
-    contactNumber: contactNumbers, 
-    contactCountry: contactCountries, 
+    contactName: contactDescription,
+    contactEmail: contactEmails,
+    contactNumber: contactNumbers,
+    contactCountry: contactCountries,
     completed: ''
-    
-  };
+  }
 }
 
-function getContactHTMLStr(info,i){
+function getContactHTMLStr(inputInfo, i) {
   return `
-  <div>
-   <h2>${i}: ${info.contactI} </h2>
-   <p>${info.contactEmail}</p>
-   <p>${info.contactNumber} (${info.contactCountry})
-  </div>
-  `;
+ <div>
+ <h2> ${i}: ${inputInfo.contactName} </h2>
+ <p>${inputInfo.contactEmail}</p>
+ <p>${inputInfo.contactNumber} (${inputInfo.contactCountry})
+ </div>
+ `;
 }
 
-function displayAll(){
+function displayAll() {
   let outputStr = '';
-  for (let i=0; i< contacts.length;i++){
-     outputStr += getContactHTMLStr(contacts[i],i);
+  for (let i = 0; i < contactsArray.length; i++) {
+    outputStr += getContactHTMLStr(contactsArray[i], i);
   }
   outputEl.innerHTML = outputStr;
-} 
-
-function saveContact(){
-  localStorage.setItem('contacts', JSON.stringify(contacts));
 }
 
-function loadContacts(){
-  let contactsStr = localStorage.getItem('contacts');
-  return JSON.parse(contactsStr) ?? [];
+function saveContact() {
+  localStorage.setItem('contactsArray', JSON.stringify(contactsArray));
 }
+
+function loadcontactsArray() {
+  let contactsArrayStr = localStorage.getItem('contactsArray');
+  return JSON.parse(contactsArrayStr) ?? [];
+}
+
 
 
