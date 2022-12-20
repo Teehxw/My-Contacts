@@ -26,7 +26,7 @@ function goBtnHandler() {
     displayByName();
   } else if (selection === 'display-country') {
     displayByCountry();
-  } else if (selection === 'searchByEmail') {
+  } else if (selection === 'SearchByEmail') {
     let inputEmail = prompt("Enter an email");
     let index = findByEmail(inputEmail);
     if (index === -1) {
